@@ -3,4 +3,10 @@
 acknowledgments: 
 
 - player contracts: Over the cap .com 
-- passing stats: pro football reference .com 
+- passing, rushing, receiving stats: pro football reference .com 
+
+
+data defintions 
+ - passing 
+ - rushing
+ - receiving 
