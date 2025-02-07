@@ -1,6 +1,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
+from pathlib import Path
 import pandas as pd
 
 # URL of the website containing the salary cap data
@@ -32,7 +33,10 @@ for row in rows:
 # Convert to Pandas DataFrame
 df = pd.DataFrame(players_data, columns=["Player", "Position", "Team", "Total Value", "Average Per Year", "Total Guaranteed"])
 
-output_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "raw")
+# Define the output directory
+base_dir = Path(__file__).resolve().parents[2] 
+output_dir = base_dir / "data" / "raw"
+
 
 # Save as CSV in the raw data folder
 output_path = os.path.join(output_dir, "nfl_player_salary_raw.csv")

@@ -1,6 +1,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
+from pathlib import Path
 import pandas as pd
 
 # Define the years and stats
@@ -26,7 +27,8 @@ HEADERS = {
 }
 
 # Define the output directory
-output_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "raw")
+base_dir = Path(__file__).resolve().parents[2] 
+output_dir = base_dir / "data" / "raw"
 
 for category in stat_categories: 
 
@@ -62,9 +64,9 @@ for category in stat_categories:
                         all_data.append(player_data)
                     else:
                         print(f"Skipping row in {year} due to length mismatch")
-                        print(f"✅ Expected Columns: {len(expected_columns)}")
-                        print(f"⏳ Sample Row Columns: {len(player_data)}")
-                        print(f"⏳ Expected Columns: {expected_columns}")
+                        print(f"Expected Columns: {len(expected_columns)}")
+                        print(f"Sample Row Columns: {len(player_data)}")
+                        print(f"Expected Columns: {expected_columns}")
                         print(f"Row Data: {player_data}\n")
 
     # Convert to DataFrame
