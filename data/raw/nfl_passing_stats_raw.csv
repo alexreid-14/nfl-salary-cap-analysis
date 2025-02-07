@@ -1,4 +1,4 @@
-Player,Age,Team,Pos,G,GS,QBrec,Cmp,Att,Cmp%,Yds,TD,TD%,Int,Int%,1D,Succ%,Lng,Y/A,AY/A,Y/C,Y/G,Rate,QBR,Sk,Yds,Sk%,NY/A,ANY/A,4QC,GWD,Awards,season
+Player,Age,Team,Position,Games_Played,Games_Started,QB_Record,Pass_Completions,Pass_Att,Completion_Percentage,Passing_Yds,Passing_TD,Passing_TD_Percentage,Interceptions,Interception_Percentage,Passing_First_Downs,Passing_Success_Rate,Longest_Pass,Yards_Gained_Per_Pass_Attempt,Adjusted_Yards_Gained_Per_Pass_Attempt,Yards_Gained_Per_Completion,Yards_Per_Game,Passer_Rating,QBR,Times_Sacked,Sack_Yards,Sack_Percentage,Net_Yards_Gained_Per_Pass_Attempt,Adjusted_Net_Yards_Per_Pass_Attempt,4th_Quarter_Comebacks,Game_Winning_Drives,Awards,season
 Drew Brees,36,NOR,QB,15,15,7-8-0,428,627,68.3,4870,32,5.1,11,1.8,228,48.5,80,7.8,8.00,11.4,324.7,101.0,66.8,31,235,4.71,7.04,7.26,1,2,,2015
 Philip Rivers,34,SDG,QB,16,16,4-12-0,437,661,66.1,4792,29,4.4,13,2.0,227,48.2,80,7.2,7.24,11.0,299.5,93.8,57.3,40,264,5.71,6.46,6.45,1,2,,2015
 Tom Brady,38,NWE,QB,16,16,12-4-0,402,624,64.4,4770,36,5.8,7,1.1,229,47.4,76,7.6,8.29,11.9,298.1,102.2,68.4,38,225,5.74,6.87,7.48,2,2,"PB,AP MVP-2,AP OPoY-4",2015

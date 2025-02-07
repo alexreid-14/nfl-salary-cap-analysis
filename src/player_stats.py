@@ -7,6 +7,24 @@ import pandas as pd
 years = list(range(2015, 2025))
 stat_categories = ["passing", "rushing", "receiving"]
 
+HEADERS = {
+    "passing": [
+        "Player", "Age", "Team", "Position", "Games_Played", "Games_Started", "QB_Record", "Pass_Completions", "Pass_Att", 
+        "Completion_Percentage", "Passing_Yds", "Passing_TD", "Passing_TD_Percentage", "Interceptions", "Interception_Percentage", "Passing_First_Downs", "Passing_Success_Rate", "Longest_Pass", "Yards_Gained_Per_Pass_Attempt",
+        "Adjusted_Yards_Gained_Per_Pass_Attempt", "Yards_Gained_Per_Completion", "Yards_Per_Game", "Passer_Rating", "QBR", "Times_Sacked", "Sack_Yards", "Sack_Percentage", "Net_Yards_Gained_Per_Pass_Attempt", "Adjusted_Net_Yards_Per_Pass_Attempt",
+        "4th_Quarter_Comebacks", "Game_Winning_Drives", "Awards"
+    ],
+    "rushing": [
+        "Player", "Age", "Team", "Position", "Games_Played", "Games_Started", "Rush_Attempts", "Rush_Yards", "Rush_TD", 
+        "First_Downs_Rushing", "Rushing_Success_Rate", "Longest_Rush", "Rush_Yards_Per_Attempt", "Rush_Yards_Per_Game", "Rush_Attempts_Per_Game", "Rush_Fumbles", "Awards"
+    ],
+    "receiving": [
+        "Player", "Age", "Team", "Position", "Games_Played", "Games_Started", "Targets", "Receptions", "Receiving_Yards", 
+        "Yards_Per_Reception", "Receiving_TD", "First_Downs_Receiving", "Receiving_Success_Rate", "Longest_Reception", "Receptions_Per_Game", "Receiving_Yards_Per_Game", "Catch_Percentage", "Yards_Per_Target", 
+        "Receiving_Fumbles", "Awards"
+    ]
+}
+
 # Define the output directory
 output_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "raw")
 
@@ -27,7 +45,7 @@ for category in stat_categories:
         table = soup.find("table", {"id": category})
 
         if table:
-            headers = [th.text.strip() for th in table.find("thead").find_all("th")][1:]  # Skip first header (rank)
+
             rows = table.find("tbody").find_all("tr")
 
             for row in rows:
@@ -38,14 +56,19 @@ for category in stat_categories:
                     if player_data[0].lower() == "league average":  # Stop at the league average row
                         continue
                     # Ensure consistent row length
-                    if len(player_data) == len(headers): 
+                    expected_columns = HEADERS[category]
+                    if len(player_data) == len(expected_columns): 
                         player_data.append(year)  # Add season column
                         all_data.append(player_data)
                     else:
-                        print(f"Skipping row in {year} due to length mismatch: {player_data}")
+                        print(f"Skipping row in {year} due to length mismatch")
+                        print(f"✅ Expected Columns: {len(expected_columns)}")
+                        print(f"⏳ Sample Row Columns: {len(player_data)}")
+                        print(f"⏳ Expected Columns: {expected_columns}")
+                        print(f"Row Data: {player_data}\n")
 
     # Convert to DataFrame
-    df = pd.DataFrame(all_data, columns=headers + ["season"])
+    df = pd.DataFrame(all_data, columns=HEADERS[category] + ["season"])
 
     # Save as CSV in the raw data folder
     output_path = os.path.join(output_dir, f"nfl_{category}_stats_raw.csv")
