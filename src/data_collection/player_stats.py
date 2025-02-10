@@ -28,7 +28,8 @@ HEADERS = {
 
 # Define the output directory
 base_dir = Path(__file__).resolve().parents[2] 
-output_dir = base_dir / "data" / "raw"
+output_dir = base_dir / "data" / "raw" / "stats"
+output_dir.mkdir(parents=True, exist_ok=True)
 
 for category in stat_categories: 
 
@@ -77,4 +78,4 @@ for category in stat_categories:
     df.to_csv(output_path, index=False)
     print(f'{category} data successfully saved to {output_path}')
 
-print("\n🚀 **Data collection and export complete!**")
+print("\n Data collection and export complete!")
