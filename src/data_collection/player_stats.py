@@ -6,7 +6,7 @@ import pandas as pd
 
 # Define the years and stats
 years = list(range(2015, 2025))
-stat_categories = ["passing", "rushing", "receiving"]
+stat_categories = ["passing", "rushing", "receiving", "defense_advanced"]
 
 HEADERS = {
     "passing": [
@@ -23,8 +23,15 @@ HEADERS = {
         "Player", "Age", "Team", "Position", "Games_Played", "Games_Started", "Targets", "Receptions", "Receiving_Yards", 
         "Yards_Per_Reception", "Receiving_TD", "First_Downs_Receiving", "Receiving_Success_Rate", "Longest_Reception", "Receptions_Per_Game", "Receiving_Yards_Per_Game", "Catch_Percentage", "Yards_Per_Target", 
         "Receiving_Fumbles", "Awards"
+    ],
+    "defense_advanced":[
+        "Player", "Age", "Team", "Position", "Games_Played", "Games_Started", "Interceptions", "Times_Targeted", 
+        "Completions_When_Targeted", "Completion_Percentage", "Yards_Allowed", "Yards_Per_Reception", 
+        "Yards_Per_Target", "Recieving_TD_Allowed", "Passing_Rating_Allowed", "Average_Depth_Of_Target", "Total_Air_Yards", "Total_YAC", 
+        "Times_Blitzed", "QB_Hurries", "QB_Hits", "Passes_Batted", "Sacks", "Pressures", "Combined_Tackles", "Missed_Tackles", "Missed_Tackle_Percentage", "Awards" 
     ]
 }
+
 
 # Define the output directory
 base_dir = Path(__file__).resolve().parents[2] 
@@ -35,7 +42,7 @@ for category in stat_categories:
 
     # Initialize a list to store all data
     all_data = []
-    
+
     # Loop through each year
     for year in years:
         url = f"https://www.pro-football-reference.com/years/{year}/{category}.htm"
@@ -43,12 +50,15 @@ for category in stat_categories:
         # Fetch the webpage
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
+        print(response.status_code, url)
 
         # Find the table
         table = soup.find("table", {"id": category})
+        if not table:
+            print(f"No table found for {category} in {year}")
+            continue
 
         if table:
-
             rows = table.find("tbody").find_all("tr")
 
             for row in rows:
